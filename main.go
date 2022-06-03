@@ -8,14 +8,14 @@ import(
 
 func formHandler(w http.ResponseWriter, r *http.Request){
 	if err := r.ParseForm(); err != nil {
-		fmt.fprintf(w, "ParseForm() err: %v", err)
+		fmt.Fprintf(w, "ParseForm() err: %v", err)
 		return
 	}
-	fmt.fprintf(w, "POST request successful")
+	fmt.Fprintf(w, "POST request successful\n")
 	name := r.FormValue("name")
 	address := r.FormValue("address")
-	fmt.fprintf("Name: %s\n", name)
-	fmt.fprintf("Address: %s\n", address)
+	fmt.Fprintf(w, "Name: %s\n", name)
+	fmt.Fprintf(w, "Address: %s\n", address)
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request){
@@ -29,11 +29,11 @@ func helloHandler(w http.ResponseWriter, r *http.Request){
 	
 	}
 
-	fmt.fprintf(w, "hello!")
+	fmt.Fprintf(w, "hello!")
 }
 func main(){
 
-	fileServer = http.fileServer(http.Dir("./static"))
+	fileServer := http.FileServer(http.Dir("./static"))
 
 	http.Handle("/", fileServer)
 	http.HandleFunc("/form", formHandler)
